@@ -3,7 +3,7 @@ using WebAPI.Models;
 
 namespace WebAPI.Services
 {
-    interface IPersonService
+    public interface IPersonService
     {
         Person CreatePerson(Person person);
         Person FindByID(int id);

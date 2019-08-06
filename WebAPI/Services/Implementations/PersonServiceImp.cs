@@ -21,8 +21,11 @@ namespace WebAPI.Services.Implementations
             return new List<Person>
             {
                 new Person { ID = 1, FirstName = "Ramon", LastName = "Farizel", Address = "Pavuna", gender = "Masculino" },
-                new Person { ID = 1, FirstName = "Ramon", LastName = "Farizel", Address = "Pavuna", gender = "Masculino" },
-                new Person { ID = 1, FirstName = "Ramon", LastName = "Farizel", Address = "Pavuna", gender = "Masculino" }
+                new Person { ID = 2, FirstName = "Ramon", LastName = "Farizel", Address = "Pavuna", gender = "Masculino" },
+                new Person { ID = 3, FirstName = "Ramon", LastName = "Farizel", Address = "Pavuna", gender = "Masculino" },
+                new Person { ID = 4, FirstName = "Ramon", LastName = "Farizel", Address = "Pavuna", gender = "Masculino" },
+                new Person { ID = 5, FirstName = "Ramon", LastName = "Farizel", Address = "Pavuna", gender = "Masculino" },
+                new Person { ID = 6, FirstName = "Ramon", LastName = "Farizel", Address = "Pavuna", gender = "Masculino" }
             };
         }
 
