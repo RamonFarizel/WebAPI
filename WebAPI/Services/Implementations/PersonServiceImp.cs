@@ -33,7 +33,7 @@ namespace WebAPI.Services.Implementations
 
         public void Delete(int id)
         {
-            var result = _context.Persons.SingleOrDefault(p => p.ID.Equals(ID));
+            var result = _context.Persons.SingleOrDefault(p => p.ID.Equals(id));
             try
             {
                 if (result != null)
