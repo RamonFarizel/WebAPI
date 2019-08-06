@@ -4,13 +4,13 @@ using System.Linq;
 using WebAPI.Models;
 using WebAPI.Models.Context;
 
-namespace WebAPI.Services.Implementations
+namespace WebAPI.Business.Implementations
 {
-    public class PersonServiceImp : IPersonService
+    public class PersonBusinessImp : IPersonBusiness
     {
         private SQLContext _context;
 
-        public PersonServiceImp(SQLContext context)
+        public PersonBusinessImp(SQLContext context)
         {
             _context = context;
         }
@@ -34,6 +34,7 @@ namespace WebAPI.Services.Implementations
         public void Delete(int id)
         {
             var result = _context.Persons.SingleOrDefault(p => p.ID.Equals(id));
+           
             try
             {
                 if (result != null)

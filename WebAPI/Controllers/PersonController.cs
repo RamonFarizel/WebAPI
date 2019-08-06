@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Models;
-using WebAPI.Services;
+using WebAPI.Business;
+using System.Diagnostics;
 
 namespace WebAPI.Controllers
 {
@@ -9,23 +10,23 @@ namespace WebAPI.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private IPersonService _personSerivce;
+        private IPersonBusiness _personBusiness;
 
-        public PersonController(IPersonService personService)
+        public PersonController(IPersonBusiness personBusiness)
         {
-            _personSerivce = personService;
+            _personBusiness = personBusiness;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_personSerivce.FindAll());
+            return Ok(_personBusiness.FindAll());
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var person = _personSerivce.FindByID(id);
+            var person = _personBusiness.FindByID(id);
             if (person == null)
                return NotFound();
 
@@ -39,7 +40,7 @@ namespace WebAPI.Controllers
             if (person == null)
                 return BadRequest();
 
-            return new ObjectResult(_personSerivce.CreatePerson(person));
+            return new ObjectResult(_personBusiness.CreatePerson(person));
         }
 
         [HttpPut]
@@ -48,13 +49,13 @@ namespace WebAPI.Controllers
             if (person == null)
                 return BadRequest();
 
-            return new ObjectResult(_personSerivce.Update(person));
+            return new ObjectResult(_personBusiness.Update(person));
         }
 
-        [HttpDelete("delete/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _personSerivce.Delete(id);
+            _personBusiness.Delete(id);
             return NoContent();
         }
     }

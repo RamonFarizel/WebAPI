@@ -12,8 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WebAPI.Models.Context;
-using WebAPI.Services;
-using WebAPI.Services.Implementations;
+using WebAPI.Business;
+using WebAPI.Business.Implementations;
 
 namespace WebAPI
 {
@@ -39,7 +39,7 @@ namespace WebAPI
             services.AddApiVersioning();
 
             //Injeção de dependência.
-            services.AddScoped<IPersonService, PersonServiceImp>();
+            services.AddScoped<IPersonBusiness, PersonBusinessImp>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
