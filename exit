@@ -1,0 +1,35 @@
+[33mcommit b3ed7388908a1b9e5463d2b96d954cc16f1c298d[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: Farizel <ramonfarizel@gmail.com>
+Date:   Tue Aug 6 12:45:46 2019 -0300
+
+    Gravando no banco local
+
+[33mcommit d14218c5a96583c3301e398abf3586322b9a2c09[m
+Author: Farizel <ramonfarizel@gmail.com>
+Date:   Tue Aug 6 11:11:01 2019 -0300
+
+    Estabelecendo coneão com o banco de dados
+
+[33mcommit 5e2581ee3936d4011fdeef415ab94e8cc43f09b2[m
+Author: Farizel <ramonfarizel@gmail.com>
+Date:   Tue Aug 6 10:20:46 2019 -0300
+
+    Implementando os 4 verbos principais
+
+[33mcommit cbb31c2336b252ce7c16a72929efe806d1eb3299[m
+Author: Farizel <ramonfarizel@gmail.com>
+Date:   Tue Aug 6 09:38:18 2019 -0300
+
+    implementando classe Person
+
+[33mcommit 363fea4ebc45a6073ec0a7bc133a08453a6fcb13[m
+Author: Farizel <ramonfarizel@gmail.com>
+Date:   Tue Aug 6 09:03:11 2019 -0300
+
+    Incluindo novas classes
+
+[33mcommit 69f45bfe9261f9b6467378c46d9edf1254685005[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Farizel <ramonfarizel@gmail.com>
+Date:   Mon Aug 5 15:12:48 2019 -0300
+
+    Primeiro Commit

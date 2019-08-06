@@ -19,6 +19,7 @@ namespace WebAPI.Services.Implementations
             try
             {
                 _context.Add(person);
+                
                 _context.SaveChanges();
             }
             catch(Exception ex)
