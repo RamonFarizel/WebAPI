@@ -2,7 +2,7 @@
 
 namespace WebAPI.Models.Base
 {
-    [DataContract]
+    //[DataContract]
     public class BaseEntity
     {
         public int? ID { get; set; }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Business;
 using WebAPI.Models;
 
@@ -34,12 +29,12 @@ namespace WebAPI.Controllers
 
 
         [HttpPost]
-        public IActionResult Post([FromBody] Book book)
+        public IActionResult Post([FromBody]Book book)
         {
             if (book == null)
                 return BadRequest();
-
             return new ObjectResult(_bookBusiness.CreateBook(book));
+            
         }
 
         [HttpPut]
