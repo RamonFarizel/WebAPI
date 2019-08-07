@@ -14,25 +14,28 @@ using Microsoft.Extensions.Options;
 using WebAPI.Models.Context;
 using WebAPI.Business;
 using WebAPI.Business.Implementations;
+using WebAPI.Repository.Implementations;
+using WebAPI.Repository;
+using WebAPI.Repository.Generic;
 
 namespace WebAPI
 {
     public class Startup
     {
+      
+        public IConfiguration _configuration { get; }
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
-
+            _configuration = configuration;
+          
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             //preparando banco de dados.
-            var connection = Configuration["ConnectionStrings:BaseExemplo"];
-            services.AddDbContext<SQLContext>(options => options.UseSqlServer(connection));
+            var connectionString = _configuration["ConnectionStrings:BaseExemplo"];
+            services.AddDbContext<SQLContext>(options => options.UseSqlServer(connectionString));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -40,6 +43,12 @@ namespace WebAPI
 
             //Injeção de dependência.
             services.AddScoped<IPersonBusiness, PersonBusinessImp>();
+            services.AddScoped<IBookBusiness, BookBusinessImp>();
+
+            services.AddScoped<IPersonRepository, PersonRepositoryImp>();
+
+            services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

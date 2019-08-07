@@ -3,84 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using WebAPI.Models;
 using WebAPI.Models.Context;
+using WebAPI.Repository;
 
 namespace WebAPI.Business.Implementations
 {
     public class PersonBusinessImp : IPersonBusiness
     {
-        private SQLContext _context;
+        private IPersonRepository _repository;
 
-        public PersonBusinessImp(SQLContext context)
+        public PersonBusinessImp(IPersonRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public Person CreatePerson(Person person)
         {
-            try
-            {
-                _context.Add(person);
-                
-                _context.SaveChanges();
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-
-            return person;
+            return _repository.CreatePerson(person); ;
         }
 
         public void Delete(int id)
         {
-            var result = _context.Persons.SingleOrDefault(p => p.ID.Equals(id));
-           
-            try
-            {
-                if (result != null)
-                {
-                    _context.Persons.Remove(result);
-                    _context.SaveChanges();
-                }   
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            _repository.Delete(id);
         }
 
         public IList<Person> FindAll()
         {
-            return _context.Persons.ToList();
+            return _repository.FindAll();
         }
 
         public Person FindByID(int id)
         {
-            return _context.Persons.SingleOrDefault(p => p.ID.Equals(id));
+            return _repository.FindByID(id);
         }
 
         public Person Update(Person person)
         {
-            if (!Exist(person.ID))
-                return new Person();
-
-            var result = _context.Persons.SingleOrDefault(p => p.ID.Equals(person.ID));
-            try
-            {
-                _context.Entry(result).CurrentValues.SetValues(person);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return person;
-        }
-
-        private bool Exist(int? iD)
-        {
-            return _context.Persons.Any(p => p.ID.Equals(iD));
+            return _repository.Update(person);
         }
     }
 }

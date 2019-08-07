@@ -49,7 +49,11 @@ namespace WebAPI.Controllers
             if (person == null)
                 return BadRequest();
 
-            return new ObjectResult(_personBusiness.Update(person));
+            var updatedPerson = _personBusiness.Update(person);
+            if (updatedPerson == null)
+                return NoContent();
+
+            return new ObjectResult(updatedPerson);
         }
 
         [HttpDelete("{id}")]
