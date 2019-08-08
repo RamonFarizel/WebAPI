@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using WebAPI.Models;
+using WebAPI.Data.VO;
 
 namespace WebAPI.Business
 {
     public interface IPersonBusiness
     {
-        Person CreatePerson(Person person);
-        Person FindByID(int id);
-        IList<Person> FindAll();
-        Person Update(Person person);
+        PersonVO CreatePerson(PersonVO person);
+        PersonVO FindByID(int id);
+        IList<PersonVO> FindAll();
+        PersonVO Update(PersonVO person);
         void Delete(int id);
 
     }

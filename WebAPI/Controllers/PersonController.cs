@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebAPI.Models;
 using WebAPI.Business;
-using System.Diagnostics;
+using WebAPI.Data.VO;
 
 namespace WebAPI.Controllers
 {
@@ -35,7 +34,7 @@ namespace WebAPI.Controllers
 
 
         [HttpPost]
-        public IActionResult Post([FromBody] Person person)
+        public IActionResult Post([FromBody] PersonVO person)
         {
             if (person == null)
                 return BadRequest();
@@ -44,7 +43,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        public IActionResult Put([FromBody] PersonVO person)
         {
             if (person == null)
                 return BadRequest();

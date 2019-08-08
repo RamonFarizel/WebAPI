@@ -1,24 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebAPI.Data.Converters;
+using WebAPI.Data.VO;
 using WebAPI.Models;
 using WebAPI.Models.Context;
 using WebAPI.Repository;
+using WebAPI.Repository.Generic;
 
 namespace WebAPI.Business.Implementations
 {
     public class PersonBusinessImp : IPersonBusiness
     {
-        private IPersonRepository _repository;
+        private readonly PersonConverter _converter;
+        private IRepository<Person> _repository;
 
-        public PersonBusinessImp(IPersonRepository repository)
+        public PersonBusinessImp(IRepository<Person> repository)
         {
             _repository = repository;
+            _converter = new PersonConverter();
         }
 
-        public Person CreatePerson(Person person)
+        public PersonVO CreatePerson(PersonVO person)
         {
-            return _repository.CreatePerson(person); ;
+            var personEntity = _converter.Parse(person);
+            personEntity = _repository.Create(personEntity);
+            return _converter.Parse(personEntity);
         }
 
         public void Delete(int id)
@@ -26,19 +33,22 @@ namespace WebAPI.Business.Implementations
             _repository.Delete(id);
         }
 
-        public IList<Person> FindAll()
+        public IList<PersonVO> FindAll()
         {
-            return _repository.FindAll();
+            return _converter.ParseList(_repository.FindAll());
         }
 
-        public Person FindByID(int id)
+        public PersonVO FindByID(int id)
         {
-            return _repository.FindByID(id);
+            return _converter.Parse(_repository.FindByID(id));
         }
 
-        public Person Update(Person person)
+        public PersonVO Update(PersonVO person)
         {
-            return _repository.Update(person);
+            var personEntity = _converter.Parse(person);
+            personEntity = _repository.Update(personEntity);
+
+            return _converter.Parse(personEntity);
         }
     }
 }
