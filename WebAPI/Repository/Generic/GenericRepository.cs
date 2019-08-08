@@ -52,7 +52,7 @@ namespace WebAPI.Repository.Generic
             }
         }
 
-        public bool Exists(long? id)
+        public bool Exists(int? id)
         {
             return _dataset.Any(p => p.ID.Equals(id));
         }

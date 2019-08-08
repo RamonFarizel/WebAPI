@@ -13,6 +13,6 @@ namespace WebAPI.Repository.Generic
         IList<T> FindAll();
         T Update(T item);
         void Delete(int id);
-        bool Exists(long? id);
+        bool Exists(int? id);
     }
 }
