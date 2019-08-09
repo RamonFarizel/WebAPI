@@ -17,6 +17,7 @@ using WebAPI.Business.Implementations;
 using WebAPI.Repository.Implementations;
 using WebAPI.Repository;
 using WebAPI.Repository.Generic;
+using Microsoft.Net.Http.Headers;
 
 namespace WebAPI
 {
@@ -37,7 +38,12 @@ namespace WebAPI
             var connectionString = _configuration["ConnectionStrings:BaseExemplo"];
             services.AddDbContext<SQLContext>(options => options.UseSqlServer(connectionString));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options => 
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+            }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddXmlSerializerFormatters();
 
             services.AddApiVersioning();
 
