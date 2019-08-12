@@ -18,6 +18,9 @@ using WebAPI.Repository.Implementations;
 using WebAPI.Repository;
 using WebAPI.Repository.Generic;
 using Microsoft.Net.Http.Headers;
+using WebAPI.Security.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI
 {
@@ -38,6 +41,45 @@ namespace WebAPI
             var connectionString = _configuration["ConnectionStrings:BaseExemplo"];
             services.AddDbContext<SQLContext>(options => options.UseSqlServer(connectionString));
 
+            //Login JWT
+            var signingConfigurations = new SigningConfiguration();
+            services.AddSingleton(signingConfigurations);
+
+            var tokenConfiguration = new TokenConfiguration();
+            new ConfigureFromConfigurationOptions<TokenConfiguration>(
+                _configuration.GetSection("TokenConfigurations")
+                )
+                .Configure(tokenConfiguration);
+
+            services.AddSingleton(tokenConfiguration);
+
+            services.AddAuthentication(authOptions =>
+            {
+                authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(bearerOptions =>
+            {
+                var paramsValidation = bearerOptions.TokenValidationParameters;
+                paramsValidation.IssuerSigningKey = signingConfigurations.Key;
+                paramsValidation.ValidAudience = tokenConfiguration.Audience;
+                paramsValidation.ValidIssuer = tokenConfiguration.Issuer;
+
+                paramsValidation.ValidateIssuerSigningKey = true;
+
+                paramsValidation.ValidateLifetime = true;
+
+                paramsValidation.ClockSkew = TimeSpan.Zero;
+            });
+
+
+            services.AddAuthorization(auth =>
+            {
+                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser().Build());
+            });
+            //
+
             services.AddMvc(options => 
             {
                 options.RespectBrowserAcceptHeader = true;
@@ -50,6 +92,8 @@ namespace WebAPI
             //Injeção de dependência.
             services.AddScoped<IPersonBusiness, PersonBusinessImp>();
             services.AddScoped<IBookBusiness, BookBusinessImp>();
+            services.AddScoped<ILoginBusiness, LoginBusinessImp>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepositoryImp>();
 
             services.AddScoped<IPersonRepository, PersonRepositoryImp>();
 

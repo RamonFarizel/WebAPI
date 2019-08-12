@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebAPI.Business;
 using WebAPI.Data.VO;
 
@@ -17,12 +18,14 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        [Authorize("Bearer")]
         public IActionResult Get()
         {
             return Ok(_personBusiness.FindAll());
         }
 
         [HttpGet("{id}")]
+        [Authorize("Bearer")]
         public IActionResult Get(int id)
         {
             var person = _personBusiness.FindByID(id);
@@ -34,6 +37,7 @@ namespace WebAPI.Controllers
 
 
         [HttpPost]
+        [Authorize("Bearer")]
         public IActionResult Post([FromBody] PersonVO person)
         {
             if (person == null)
@@ -43,6 +47,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
+        [Authorize("Bearer")]
         public IActionResult Put([FromBody] PersonVO person)
         {
             if (person == null)
@@ -56,6 +61,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize("Bearer")]
         public IActionResult Delete(int id)
         {
             _personBusiness.Delete(id);

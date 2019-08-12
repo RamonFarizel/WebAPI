@@ -18,7 +18,9 @@ namespace WebAPI.Models.Context
 
         }
 
+        //Mesmo nome da tabela do banco de DADOS!!!!!
         public DbSet<Person> Persons {get;set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<Usuarios> Users { get; set; }
     }
 }
